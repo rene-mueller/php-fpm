@@ -8,6 +8,9 @@ LABEL clicksports.php-fpm.version="1.2"
 # set workdir
 WORKDIR /var/www/html
 
+# make www-data owner of his home dir
+RUN chown www-data:www-data /root/www
+
 #set SHELL
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -74,5 +77,3 @@ RUN if dpkg --compare-versions "$PHP_VERSION" "lt" "8.0.0"; then \
 RUN docker-php-source delete
 
 COPY --from=composer:2.0 /usr/bin/composer /usr/local/bin/composer
-
-WORKDIR /var/www/html
