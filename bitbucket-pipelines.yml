@@ -18,9 +18,9 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=7.3
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker build . --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker build ./development --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker build ./production --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
+              - docker buildx build .  --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
+              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
+              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
             caches:
               - docker
         - step:
@@ -29,9 +29,9 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=7.4
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker build . --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker build ./development --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker build ./production --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
+              - docker buildx build . --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
+              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
+              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
             caches:
               - docker
         - step:
@@ -40,9 +40,9 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=8.0
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker build . --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker build ./development --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker build ./production --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
+              - docker buildx build .  --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
+              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
+              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
             caches:
               - docker
   branches:
@@ -54,13 +54,10 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=7.3
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker build . --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker build ./development --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker build ./production --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
               - echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REPOSITORY} --username "${DOCKER_USERNAME}" --password-stdin
-              - docker push "${IMAGE}:${VERSION}"
-              - docker push "${IMAGE}-dev:${VERSION}"
-              - docker push "${IMAGE}-prod:${VERSION}"
+              - docker buildx build . --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}" --push
+              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}" --push
+              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}" --push
             caches:
               - docker
         - step:
@@ -69,13 +66,10 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=7.4
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker build . --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker build ./development --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker build ./production --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
               - echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REPOSITORY} --username "${DOCKER_USERNAME}" --password-stdin
-              - docker push "${IMAGE}:${VERSION}"
-              - docker push "${IMAGE}-dev:${VERSION}"
-              - docker push "${IMAGE}-prod:${VERSION}"
+              - docker buildx build . --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}" --push
+              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}" --push
+              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}" --push
             caches:
               - docker
         - step:
@@ -84,12 +78,9 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=8.0
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker build . --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker build ./development --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker build ./production --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
               - echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REPOSITORY} --username "${DOCKER_USERNAME}" --password-stdin
-              - docker push "${IMAGE}:${VERSION}"
-              - docker push "${IMAGE}-dev:${VERSION}"
-              - docker push "${IMAGE}-prod:${VERSION}"
+              - docker buildx build . --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}" --push
+              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}" --push
+              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}" --push
             caches:
               - docker
