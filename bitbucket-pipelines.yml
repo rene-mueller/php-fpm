@@ -18,9 +18,9 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=7.3
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker buildx build .  --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}" .
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}" ./development
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}" ./production
             caches:
               - docker
         - step:
@@ -29,9 +29,9 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=7.4
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker buildx build . --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}" .
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}" ./development
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}" ./production
             caches:
               - docker
         - step:
@@ -40,9 +40,9 @@ pipelines:
               - IMAGE_NAME=$BITBUCKET_REPO_SLUG
               - VERSION=8.0
               - IMAGE=${DOCKER_REPOSITORY}/docker/${IMAGE_NAME}
-              - docker buildx build .  --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}"
-              - docker buildx build ./development --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}"
-              - docker buildx build ./production --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}"
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}:${VERSION}" .
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-dev:${VERSION}" ./development
+              - docker buildx build --platform linux/amd64,linux/arm64 --build-arg PHP_VERSION=${VERSION} --tag "${IMAGE}-prod:${VERSION}" ./production
             caches:
               - docker
   branches:
