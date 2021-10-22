@@ -7,11 +7,9 @@ ENV XDEBUG_MODE debug
 ENV XDEBUG_CONFIG client_host=host.docker.internal
 ENV PHP_IDE_CONFIG serverName=docker
 
-RUN apk upgrade --no-cache && \
-    apk add \
+RUN apk --no-cache add \
         bash \
-        nano \
-    && rm -rf /var/cache/apk/*
+        nano
 
 # copy bash layout
 COPY .bashrc /root/.bashrc

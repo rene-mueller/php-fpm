@@ -12,8 +12,7 @@ WORKDIR /var/www/html
 COPY docker-php-ext-get /usr/local/bin/
 
 # install non php modules
-RUN apk upgrade --no-cache && \
-    apk add \
+RUN apk --no-cache add \
         freetype-dev \
         libpng-dev \
         libjpeg-turbo-dev \
@@ -29,8 +28,7 @@ RUN apk upgrade --no-cache && \
         curl \
         zip \
         unzip \
-        git \
-    && rm -rf /var/cache/apk/*
+        git
 
 # Configure imap
 RUN set -eux; PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
