@@ -12,7 +12,7 @@ WORKDIR /var/www/html
 COPY docker-php-ext-get /usr/local/bin/
 
 # install non php modules
-RUN apk upgrade --update && \
+RUN apk upgrade --no-cache && \
     apk add \
         freetype-dev \
         libpng-dev \
