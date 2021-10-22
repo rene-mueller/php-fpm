@@ -7,8 +7,9 @@ ENV XDEBUG_MODE debug
 ENV XDEBUG_CONFIG client_host=host.docker.internal
 ENV PHP_IDE_CONFIG serverName=docker
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
+RUN apk upgrade --update && \
+    apk add \
+        bash \
         nano \
     && rm -rf /var/lib/apt/lists/*
 

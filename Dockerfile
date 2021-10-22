@@ -1,6 +1,6 @@
 ARG PHP_VERSION=7.4
 
-FROM php:${PHP_VERSION}-fpm
+FROM php:${PHP_VERSION}-fpm-alpine
 
 LABEL clicksports.php-fpm.maintainer="Alexander Schlegel, René Müller CLICKSPORTS"
 LABEL clicksports.php-fpm.version="1.2"
@@ -8,27 +8,24 @@ LABEL clicksports.php-fpm.version="1.2"
 # set workdir
 WORKDIR /var/www/html
 
-#set SHELL
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 # add bash scripts
 COPY docker-php-ext-get /usr/local/bin/
 
 # install non php modules
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-        libfreetype6-dev \
+RUN apk upgrade --update && \
+    apk add \
+        freetype-dev \
         libpng-dev \
-        libjpeg62-turbo-dev \
-        libmagickwand-dev \
-        libssl-dev \
+        libjpeg-turbo-dev \
+        imagemagick-dev \
+        openssl-dev \
         libzip-dev \
         libxml2-dev \
-        libonig-dev \
-        libc-client-dev \
-        libkrb5-dev \
-        libcurl4-openssl-dev \
-        zlib1g-dev \
+        oniguruma-dev \
+        imap-dev \
+        krb5-dev \
+        curl-dev \
+        zlib-dev \
         curl \
         zip \
         unzip \
@@ -40,7 +37,7 @@ RUN set -eux; PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --wi
 
 # Configure GD
 RUN if dpkg --compare-versions "$PHP_VERSION" "lt" "7.4.0"; then \
-    docker-php-ext-configure gd --with-freetype-dir=/usr/local/ --with-jpeg-dir=/usr/local/  \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/local/ \ --with-jpeg-dir=/usr/local/  \
   ; else \
     docker-php-ext-configure gd --with-freetype=/usr/local/ --with-jpeg=/usr/local/ \
   ; fi
