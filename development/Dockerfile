@@ -11,7 +11,7 @@ RUN apk upgrade --update && \
     apk add \
         bash \
         nano \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/cache/apk/*
 
 # copy bash layout
 COPY .bashrc /root/.bashrc

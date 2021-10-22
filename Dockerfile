@@ -30,7 +30,7 @@ RUN apk upgrade --update && \
         zip \
         unzip \
         git \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/cache/apk/*
 
 # Configure imap
 RUN set -eux; PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
