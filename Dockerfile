@@ -49,6 +49,7 @@ RUN apk update \
         zip \
         unzip \
         git \
+        mailutils \
     && rm -rf /var/cache/apk/*
 
 # Configure imap
