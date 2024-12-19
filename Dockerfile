@@ -49,6 +49,7 @@ RUN apk update \
         zip \
         unzip \
         git \
+        postfix \
         mailutils \
     && rm -rf /var/cache/apk/*
 
